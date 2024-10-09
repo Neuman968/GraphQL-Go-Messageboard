@@ -1,19 +1,11 @@
 type Query {
-    getUsers : [User]
-    # getUser(id: ID!) : User
-
-    # getUserPosts(userId: Int): [Post]
-
-    getPosts: [Post]
-
-    # getPostComments(postId: ID!) : [Comment]
-    # getComment(id: ID!): Comment
+    getUsers : [User!]
+    getPosts: [Post!]
 }
 
 type Mutation {
-    addPost(add: AddNewPostInput!): Post
-    addComment(add: AddNewCommentInput!): Comment
-    helloWorld: User
+    addPost(add: AddNewPostInput!): Post!
+    addComment(add: AddNewCommentInput!): Comment!
 }
 
 type User {
@@ -23,7 +15,7 @@ type User {
 
 type Post {
     id: ID!
-    authorUserId: Int!
+    authorUserId: ID!
     authorUser: User!
     text: String!
     comments(limit: Int!): [Comment!]!
@@ -34,15 +26,15 @@ input AddNewPostInput {
 }
 
 input AddNewCommentInput {
-    postId: Int!
+    postId: String!
     text: String!
 }
 
 type Comment {
     id: ID!
-    postId: Int!
+    postId: ID!
     post: Post!
-    authorUserId: Int!
+    authorUserId: ID!
     authorUser: User!
     text: String!
 }

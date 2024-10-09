@@ -17,3 +17,12 @@ Running the server can be done with the command
 ```bash
 PORT=8080 go run server.go
 ```
+
+
+# Database Generation using jet
+
+note requires the database be up and running to generate against a live schema.
+
+```bash
+jet -dsn="postgresql://messageboard-db-user:messageboard-db-password@localhost:5432/messageboardDB?sslmode=disable" -path=./.gen
+```
