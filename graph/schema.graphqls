@@ -1,18 +1,19 @@
 type Query {
     getUsers : [User]
-    getUser(id: ID!) : User
+    # getUser(id: ID!) : User
 
-    getUserPosts(userId: Int): [Post]
+    # getUserPosts(userId: Int): [Post]
 
     getPosts: [Post]
 
-    getPostComments(postId: ID!) : [Comment]
-    getComment(id: ID!): Comment
+    # getPostComments(postId: ID!) : [Comment]
+    # getComment(id: ID!): Comment
 }
 
 type Mutation {
     addPost(add: AddNewPostInput!): Post
     addComment(add: AddNewCommentInput!): Comment
+    helloWorld: User
 }
 
 type User {

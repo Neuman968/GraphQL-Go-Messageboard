@@ -13,42 +13,64 @@ import (
 
 // AddPost is the resolver for the addPost field.
 func (r *mutationResolver) AddPost(ctx context.Context, add model.AddNewPostInput) (*model.Post, error) {
-	panic(fmt.Errorf("not implemented: AddPost - addPost"))
+	post := model.Post{
+		ID:           "12345",
+		Text:         add.Text,
+		AuthorUserID: 10,
+		AuthorUser:   &model.User{},
+	}
+	// log := log.Default()
+
+	// log.Printf("Creating Post: %v \n", post)
+	return &post, nil
 }
 
 // AddComment is the resolver for the addComment field.
 func (r *mutationResolver) AddComment(ctx context.Context, add model.AddNewCommentInput) (*model.Comment, error) {
-	panic(fmt.Errorf("not implemented: AddComment - addComment"))
+	return nil, fmt.Errorf("Add Comment Not implemented...")
+}
+
+// HelloWorld is the resolver for the helloWorld field.
+func (r *mutationResolver) HelloWorld(ctx context.Context) (*model.User, error) {
+	return &model.User{
+		ID:   "Foo",
+		Name: "Hello World!",
+	}, nil
 }
 
 // GetUsers is the resolver for the getUsers field.
 func (r *queryResolver) GetUsers(ctx context.Context) ([]*model.User, error) {
-	panic(fmt.Errorf("not implemented: GetUsers - getUsers"))
-}
+	// todo access db stuff.
 
-// GetUser is the resolver for the getUser field.
-func (r *queryResolver) GetUser(ctx context.Context, id string) (*model.User, error) {
-	panic(fmt.Errorf("not implemented: GetUser - getUser"))
-}
+	users := []*model.User{
+		&model.User{
+			ID:   "1234",
+			Name: "spongebob",
+		},
+		&model.User{
+			ID:   "5678",
+			Name: "squidward",
+		},
+	}
 
-// GetUserPosts is the resolver for the getUserPosts field.
-func (r *queryResolver) GetUserPosts(ctx context.Context, userID *int) ([]*model.Post, error) {
-	panic(fmt.Errorf("not implemented: GetUserPosts - getUserPosts"))
+	return users, nil
 }
 
 // GetPosts is the resolver for the getPosts field.
 func (r *queryResolver) GetPosts(ctx context.Context) ([]*model.Post, error) {
-	panic(fmt.Errorf("not implemented: GetPosts - getPosts"))
-}
+	posts := []*model.Post{
+		&model.Post{
+			ID:           "abcd",
+			Text:         "I got a new pair of shoes!",
+			AuthorUserID: 10,
+			AuthorUser: &model.User{
+				ID:   "10",
+				Name: "sandy33",
+			},
+		},
+	}
 
-// GetPostComments is the resolver for the getPostComments field.
-func (r *queryResolver) GetPostComments(ctx context.Context, postID string) ([]*model.Comment, error) {
-	panic(fmt.Errorf("not implemented: GetPostComments - getPostComments"))
-}
-
-// GetComment is the resolver for the getComment field.
-func (r *queryResolver) GetComment(ctx context.Context, id string) (*model.Comment, error) {
-	panic(fmt.Errorf("not implemented: GetComment - getComment"))
+	return posts, nil
 }
 
 // Mutation returns MutationResolver implementation.
