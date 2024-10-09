@@ -8,7 +8,7 @@ import (
 	"context"
 	"fmt"
 
-	"bookstore.example.graphql/graph/model"
+	"messageboard.example.graphql/graph/model"
 )
 
 // AddPost is the resolver for the addPost field.

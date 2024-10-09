@@ -1,4 +1,4 @@
-module bookstore.example.graphql
+module messageboard.example.graphql
 
 go 1.23.0
 

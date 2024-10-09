@@ -5,9 +5,9 @@ import (
 	"net/http"
 	"os"
 
-	"bookstore.example.graphql/graph"
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/playground"
+	"messageboard.example.graphql/graph"
 )
 
 const defaultPort = "8080"

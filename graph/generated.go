@@ -12,7 +12,7 @@ import (
 	"sync"
 	"sync/atomic"
 
-	"bookstore.example.graphql/graph/model"
+	"messageboard.example.graphql/graph/model"
 	"github.com/99designs/gqlgen/graphql"
 	"github.com/99designs/gqlgen/graphql/introspection"
 	gqlparser "github.com/vektah/gqlparser/v2"
