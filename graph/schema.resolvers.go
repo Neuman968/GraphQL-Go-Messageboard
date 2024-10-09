@@ -41,19 +41,14 @@ func (r *queryResolver) GetPosts(ctx context.Context) ([]*model.Post, error) {
 	panic(fmt.Errorf("not implemented: GetPosts - getPosts"))
 }
 
-// GetComments is the resolver for the getComments field.
-func (r *queryResolver) GetComments(ctx context.Context) ([]*model.Comment, error) {
-	panic(fmt.Errorf("not implemented: GetComments - getComments"))
+// GetPostComments is the resolver for the getPostComments field.
+func (r *queryResolver) GetPostComments(ctx context.Context, postID string) ([]*model.Comment, error) {
+	panic(fmt.Errorf("not implemented: GetPostComments - getPostComments"))
 }
 
 // GetComment is the resolver for the getComment field.
 func (r *queryResolver) GetComment(ctx context.Context, id string) (*model.Comment, error) {
 	panic(fmt.Errorf("not implemented: GetComment - getComment"))
-}
-
-// GetPostComments is the resolver for the getPostComments field.
-func (r *queryResolver) GetPostComments(ctx context.Context, postID string) ([]*model.Comment, error) {
-	panic(fmt.Errorf("not implemented: GetPostComments - getPostComments"))
 }
 
 // Mutation returns MutationResolver implementation.
@@ -72,10 +67,7 @@ type queryResolver struct{ *Resolver }
 //    it when you're done.
 //  - You have helper methods in this file. Move them out to keep these resolver files clean.
 /*
-	func (r *mutationResolver) CreateTodo(ctx context.Context, input model.NewTodo) (*model.Todo, error) {
-	panic(fmt.Errorf("not implemented: CreateTodo - createTodo"))
-}
-func (r *queryResolver) Todos(ctx context.Context) ([]*model.Todo, error) {
-	panic(fmt.Errorf("not implemented: Todos - todos"))
+	func (r *queryResolver) GetComments(ctx context.Context) ([]*model.Comment, error) {
+	panic(fmt.Errorf("not implemented: GetComments - getComments"))
 }
 */

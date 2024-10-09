@@ -6,9 +6,8 @@ type Query {
 
     getPosts: [Post]
 
-    getComments: [Comment]
-    getComment(id: ID!): Comment
     getPostComments(postId: ID!) : [Comment]
+    getComment(id: ID!): Comment
 }
 
 type Mutation {

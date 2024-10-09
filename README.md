@@ -9,3 +9,4 @@ Generating and updating the go code based on schema can be run using the command
 ```bash
 go run github.com/99designs/gqlgen generate
 ```
+

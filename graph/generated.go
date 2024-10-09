@@ -71,7 +71,6 @@ type ComplexityRoot struct {
 
 	Query struct {
 		GetComment      func(childComplexity int, id string) int
-		GetComments     func(childComplexity int) int
 		GetPostComments func(childComplexity int, postID string) int
 		GetPosts        func(childComplexity int) int
 		GetUser         func(childComplexity int, id string) int
@@ -94,9 +93,8 @@ type QueryResolver interface {
 	GetUser(ctx context.Context, id string) (*model.UserEntity, error)
 	GetUserPosts(ctx context.Context, userID *int) ([]*model.Post, error)
 	GetPosts(ctx context.Context) ([]*model.Post, error)
-	GetComments(ctx context.Context) ([]*model.Comment, error)
-	GetComment(ctx context.Context, id string) (*model.Comment, error)
 	GetPostComments(ctx context.Context, postID string) ([]*model.Comment, error)
+	GetComment(ctx context.Context, id string) (*model.Comment, error)
 }
 
 type executableSchema struct {
@@ -235,13 +233,6 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.Query.GetComment(childComplexity, args["id"].(string)), true
-
-	case "Query.getComments":
-		if e.complexity.Query.GetComments == nil {
-			break
-		}
-
-		return e.complexity.Query.GetComments(childComplexity), true
 
 	case "Query.getPostComments":
 		if e.complexity.Query.GetPostComments == nil {
@@ -1556,8 +1547,8 @@ func (ec *executionContext) fieldContext_Query_getPosts(_ context.Context, field
 	return fc, nil
 }
 
-func (ec *executionContext) _Query_getComments(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
-	fc, err := ec.fieldContext_Query_getComments(ctx, field)
+func (ec *executionContext) _Query_getPostComments(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Query_getPostComments(ctx, field)
 	if err != nil {
 		return graphql.Null
 	}
@@ -1570,7 +1561,7 @@ func (ec *executionContext) _Query_getComments(ctx context.Context, field graphq
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Query().GetComments(rctx)
+		return ec.resolvers.Query().GetPostComments(rctx, fc.Args["postId"].(string))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -1584,7 +1575,7 @@ func (ec *executionContext) _Query_getComments(ctx context.Context, field graphq
 	return ec.marshalOComment2ᚕᚖbookstoreᚗexampleᚗgraphqlᚋgraphᚋmodelᚐComment(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) fieldContext_Query_getComments(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+func (ec *executionContext) fieldContext_Query_getPostComments(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
 	fc = &graphql.FieldContext{
 		Object:     "Query",
 		Field:      field,
@@ -1607,6 +1598,17 @@ func (ec *executionContext) fieldContext_Query_getComments(_ context.Context, fi
 			}
 			return nil, fmt.Errorf("no field named %q was found under type Comment", field.Name)
 		},
+	}
+	defer func() {
+		if r := recover(); r != nil {
+			err = ec.Recover(ctx, r)
+			ec.Error(ctx, err)
+		}
+	}()
+	ctx = graphql.WithFieldContext(ctx, fc)
+	if fc.Args, err = ec.field_Query_getPostComments_args(ctx, field.ArgumentMap(ec.Variables)); err != nil {
+		ec.Error(ctx, err)
+		return fc, err
 	}
 	return fc, nil
 }
@@ -1671,72 +1673,6 @@ func (ec *executionContext) fieldContext_Query_getComment(ctx context.Context, f
 	}()
 	ctx = graphql.WithFieldContext(ctx, fc)
 	if fc.Args, err = ec.field_Query_getComment_args(ctx, field.ArgumentMap(ec.Variables)); err != nil {
-		ec.Error(ctx, err)
-		return fc, err
-	}
-	return fc, nil
-}
-
-func (ec *executionContext) _Query_getPostComments(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
-	fc, err := ec.fieldContext_Query_getPostComments(ctx, field)
-	if err != nil {
-		return graphql.Null
-	}
-	ctx = graphql.WithFieldContext(ctx, fc)
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-	}()
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Query().GetPostComments(rctx, fc.Args["postId"].(string))
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		return graphql.Null
-	}
-	res := resTmp.([]*model.Comment)
-	fc.Result = res
-	return ec.marshalOComment2ᚕᚖbookstoreᚗexampleᚗgraphqlᚋgraphᚋmodelᚐComment(ctx, field.Selections, res)
-}
-
-func (ec *executionContext) fieldContext_Query_getPostComments(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
-	fc = &graphql.FieldContext{
-		Object:     "Query",
-		Field:      field,
-		IsMethod:   true,
-		IsResolver: true,
-		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
-			switch field.Name {
-			case "id":
-				return ec.fieldContext_Comment_id(ctx, field)
-			case "postId":
-				return ec.fieldContext_Comment_postId(ctx, field)
-			case "post":
-				return ec.fieldContext_Comment_post(ctx, field)
-			case "authorUserId":
-				return ec.fieldContext_Comment_authorUserId(ctx, field)
-			case "authorUser":
-				return ec.fieldContext_Comment_authorUser(ctx, field)
-			case "text":
-				return ec.fieldContext_Comment_text(ctx, field)
-			}
-			return nil, fmt.Errorf("no field named %q was found under type Comment", field.Name)
-		},
-	}
-	defer func() {
-		if r := recover(); r != nil {
-			err = ec.Recover(ctx, r)
-			ec.Error(ctx, err)
-		}
-	}()
-	ctx = graphql.WithFieldContext(ctx, fc)
-	if fc.Args, err = ec.field_Query_getPostComments_args(ctx, field.ArgumentMap(ec.Variables)); err != nil {
 		ec.Error(ctx, err)
 		return fc, err
 	}
@@ -4070,7 +4006,7 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 			}
 
 			out.Concurrently(i, func(ctx context.Context) graphql.Marshaler { return rrm(innerCtx) })
-		case "getComments":
+		case "getPostComments":
 			field := field
 
 			innerFunc := func(ctx context.Context, _ *graphql.FieldSet) (res graphql.Marshaler) {
@@ -4079,7 +4015,7 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 						ec.Error(ctx, ec.Recover(ctx, r))
 					}
 				}()
-				res = ec._Query_getComments(ctx, field)
+				res = ec._Query_getPostComments(ctx, field)
 				return res
 			}
 
@@ -4099,25 +4035,6 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 					}
 				}()
 				res = ec._Query_getComment(ctx, field)
-				return res
-			}
-
-			rrm := func(ctx context.Context) graphql.Marshaler {
-				return ec.OperationContext.RootResolverMiddleware(ctx,
-					func(ctx context.Context) graphql.Marshaler { return innerFunc(ctx, out) })
-			}
-
-			out.Concurrently(i, func(ctx context.Context) graphql.Marshaler { return rrm(innerCtx) })
-		case "getPostComments":
-			field := field
-
-			innerFunc := func(ctx context.Context, _ *graphql.FieldSet) (res graphql.Marshaler) {
-				defer func() {
-					if r := recover(); r != nil {
-						ec.Error(ctx, ec.Recover(ctx, r))
-					}
-				}()
-				res = ec._Query_getPostComments(ctx, field)
 				return res
 			}
 
