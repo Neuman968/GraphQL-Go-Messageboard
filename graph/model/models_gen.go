@@ -12,29 +12,29 @@ type AddNewPostInput struct {
 }
 
 type Comment struct {
-	ID           string      `json:"id"`
-	PostID       int         `json:"postId"`
-	Post         *Post       `json:"post"`
-	AuthorUserID int         `json:"authorUserId"`
-	AuthorUser   *UserEntity `json:"authorUser"`
-	Text         string      `json:"text"`
+	ID           string `json:"id"`
+	PostID       int    `json:"postId"`
+	Post         *Post  `json:"post"`
+	AuthorUserID int    `json:"authorUserId"`
+	AuthorUser   *User  `json:"authorUser"`
+	Text         string `json:"text"`
 }
 
 type Mutation struct {
 }
 
 type Post struct {
-	ID           string      `json:"id"`
-	AuthorUserID int         `json:"authorUserId"`
-	AuthorUser   *UserEntity `json:"authorUser"`
-	Text         string      `json:"text"`
-	Comments     []*Comment  `json:"comments"`
+	ID           string     `json:"id"`
+	AuthorUserID int        `json:"authorUserId"`
+	AuthorUser   *User      `json:"authorUser"`
+	Text         string     `json:"text"`
+	Comments     []*Comment `json:"comments"`
 }
 
 type Query struct {
 }
 
-type UserEntity struct {
+type User struct {
 	ID   string `json:"id"`
 	Name string `json:"name"`
 }

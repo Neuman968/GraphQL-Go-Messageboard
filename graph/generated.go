@@ -12,11 +12,11 @@ import (
 	"sync"
 	"sync/atomic"
 
-	"messageboard.example.graphql/graph/model"
 	"github.com/99designs/gqlgen/graphql"
 	"github.com/99designs/gqlgen/graphql/introspection"
 	gqlparser "github.com/vektah/gqlparser/v2"
 	"github.com/vektah/gqlparser/v2/ast"
+	"messageboard.example.graphql/graph/model"
 )
 
 // region    ************************** generated!.gotpl **************************
@@ -78,7 +78,7 @@ type ComplexityRoot struct {
 		GetUsers        func(childComplexity int) int
 	}
 
-	UserEntity struct {
+	User struct {
 		ID   func(childComplexity int) int
 		Name func(childComplexity int) int
 	}
@@ -89,8 +89,8 @@ type MutationResolver interface {
 	AddComment(ctx context.Context, add model.AddNewCommentInput) (*model.Comment, error)
 }
 type QueryResolver interface {
-	GetUsers(ctx context.Context) ([]*model.UserEntity, error)
-	GetUser(ctx context.Context, id string) (*model.UserEntity, error)
+	GetUsers(ctx context.Context) ([]*model.User, error)
+	GetUser(ctx context.Context, id string) (*model.User, error)
 	GetUserPosts(ctx context.Context, userID *int) ([]*model.Post, error)
 	GetPosts(ctx context.Context) ([]*model.Post, error)
 	GetPostComments(ctx context.Context, postID string) ([]*model.Comment, error)
@@ -284,19 +284,19 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Query.GetUsers(childComplexity), true
 
-	case "UserEntity.id":
-		if e.complexity.UserEntity.ID == nil {
+	case "User.id":
+		if e.complexity.User.ID == nil {
 			break
 		}
 
-		return e.complexity.UserEntity.ID(childComplexity), true
+		return e.complexity.User.ID(childComplexity), true
 
-	case "UserEntity.name":
-		if e.complexity.UserEntity.Name == nil {
+	case "User.name":
+		if e.complexity.User.Name == nil {
 			break
 		}
 
-		return e.complexity.UserEntity.Name(childComplexity), true
+		return e.complexity.User.Name(childComplexity), true
 
 	}
 	return 0, false
@@ -440,7 +440,7 @@ func (ec *executionContext) field_Mutation_addComment_argsAdd(
 ) (model.AddNewCommentInput, error) {
 	ctx = graphql.WithPathContext(ctx, graphql.NewPathWithField("add"))
 	if tmp, ok := rawArgs["add"]; ok {
-		return ec.unmarshalNAddNewCommentInput2bookstoreᚗexampleᚗgraphqlᚋgraphᚋmodelᚐAddNewCommentInput(ctx, tmp)
+		return ec.unmarshalNAddNewCommentInput2messageboardᚗexampleᚗgraphqlᚋgraphᚋmodelᚐAddNewCommentInput(ctx, tmp)
 	}
 
 	var zeroVal model.AddNewCommentInput
@@ -463,7 +463,7 @@ func (ec *executionContext) field_Mutation_addPost_argsAdd(
 ) (model.AddNewPostInput, error) {
 	ctx = graphql.WithPathContext(ctx, graphql.NewPathWithField("add"))
 	if tmp, ok := rawArgs["add"]; ok {
-		return ec.unmarshalNAddNewPostInput2bookstoreᚗexampleᚗgraphqlᚋgraphᚋmodelᚐAddNewPostInput(ctx, tmp)
+		return ec.unmarshalNAddNewPostInput2messageboardᚗexampleᚗgraphqlᚋgraphᚋmodelᚐAddNewPostInput(ctx, tmp)
 	}
 
 	var zeroVal model.AddNewPostInput
@@ -778,7 +778,7 @@ func (ec *executionContext) _Comment_post(ctx context.Context, field graphql.Col
 	}
 	res := resTmp.(*model.Post)
 	fc.Result = res
-	return ec.marshalNPost2ᚖbookstoreᚗexampleᚗgraphqlᚋgraphᚋmodelᚐPost(ctx, field.Selections, res)
+	return ec.marshalNPost2ᚖmessageboardᚗexampleᚗgraphqlᚋgraphᚋmodelᚐPost(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Comment_post(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -876,9 +876,9 @@ func (ec *executionContext) _Comment_authorUser(ctx context.Context, field graph
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*model.UserEntity)
+	res := resTmp.(*model.User)
 	fc.Result = res
-	return ec.marshalNUserEntity2ᚖbookstoreᚗexampleᚗgraphqlᚋgraphᚋmodelᚐUserEntity(ctx, field.Selections, res)
+	return ec.marshalNUser2ᚖmessageboardᚗexampleᚗgraphqlᚋgraphᚋmodelᚐUser(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Comment_authorUser(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -890,11 +890,11 @@ func (ec *executionContext) fieldContext_Comment_authorUser(_ context.Context, f
 		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
 			switch field.Name {
 			case "id":
-				return ec.fieldContext_UserEntity_id(ctx, field)
+				return ec.fieldContext_User_id(ctx, field)
 			case "name":
-				return ec.fieldContext_UserEntity_name(ctx, field)
+				return ec.fieldContext_User_name(ctx, field)
 			}
-			return nil, fmt.Errorf("no field named %q was found under type UserEntity", field.Name)
+			return nil, fmt.Errorf("no field named %q was found under type User", field.Name)
 		},
 	}
 	return fc, nil
@@ -969,7 +969,7 @@ func (ec *executionContext) _Mutation_addPost(ctx context.Context, field graphql
 	}
 	res := resTmp.(*model.Post)
 	fc.Result = res
-	return ec.marshalOPost2ᚖbookstoreᚗexampleᚗgraphqlᚋgraphᚋmodelᚐPost(ctx, field.Selections, res)
+	return ec.marshalOPost2ᚖmessageboardᚗexampleᚗgraphqlᚋgraphᚋmodelᚐPost(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Mutation_addPost(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -1033,7 +1033,7 @@ func (ec *executionContext) _Mutation_addComment(ctx context.Context, field grap
 	}
 	res := resTmp.(*model.Comment)
 	fc.Result = res
-	return ec.marshalOComment2ᚖbookstoreᚗexampleᚗgraphqlᚋgraphᚋmodelᚐComment(ctx, field.Selections, res)
+	return ec.marshalOComment2ᚖmessageboardᚗexampleᚗgraphqlᚋgraphᚋmodelᚐComment(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Mutation_addComment(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -1188,9 +1188,9 @@ func (ec *executionContext) _Post_authorUser(ctx context.Context, field graphql.
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*model.UserEntity)
+	res := resTmp.(*model.User)
 	fc.Result = res
-	return ec.marshalNUserEntity2ᚖbookstoreᚗexampleᚗgraphqlᚋgraphᚋmodelᚐUserEntity(ctx, field.Selections, res)
+	return ec.marshalNUser2ᚖmessageboardᚗexampleᚗgraphqlᚋgraphᚋmodelᚐUser(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Post_authorUser(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -1202,11 +1202,11 @@ func (ec *executionContext) fieldContext_Post_authorUser(_ context.Context, fiel
 		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
 			switch field.Name {
 			case "id":
-				return ec.fieldContext_UserEntity_id(ctx, field)
+				return ec.fieldContext_User_id(ctx, field)
 			case "name":
-				return ec.fieldContext_UserEntity_name(ctx, field)
+				return ec.fieldContext_User_name(ctx, field)
 			}
-			return nil, fmt.Errorf("no field named %q was found under type UserEntity", field.Name)
+			return nil, fmt.Errorf("no field named %q was found under type User", field.Name)
 		},
 	}
 	return fc, nil
@@ -1284,7 +1284,7 @@ func (ec *executionContext) _Post_comments(ctx context.Context, field graphql.Co
 	}
 	res := resTmp.([]*model.Comment)
 	fc.Result = res
-	return ec.marshalNComment2ᚕᚖbookstoreᚗexampleᚗgraphqlᚋgraphᚋmodelᚐCommentᚄ(ctx, field.Selections, res)
+	return ec.marshalNComment2ᚕᚖmessageboardᚗexampleᚗgraphqlᚋgraphᚋmodelᚐCommentᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Post_comments(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -1348,9 +1348,9 @@ func (ec *executionContext) _Query_getUsers(ctx context.Context, field graphql.C
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.([]*model.UserEntity)
+	res := resTmp.([]*model.User)
 	fc.Result = res
-	return ec.marshalOUserEntity2ᚕᚖbookstoreᚗexampleᚗgraphqlᚋgraphᚋmodelᚐUserEntity(ctx, field.Selections, res)
+	return ec.marshalOUser2ᚕᚖmessageboardᚗexampleᚗgraphqlᚋgraphᚋmodelᚐUser(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Query_getUsers(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -1362,11 +1362,11 @@ func (ec *executionContext) fieldContext_Query_getUsers(_ context.Context, field
 		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
 			switch field.Name {
 			case "id":
-				return ec.fieldContext_UserEntity_id(ctx, field)
+				return ec.fieldContext_User_id(ctx, field)
 			case "name":
-				return ec.fieldContext_UserEntity_name(ctx, field)
+				return ec.fieldContext_User_name(ctx, field)
 			}
-			return nil, fmt.Errorf("no field named %q was found under type UserEntity", field.Name)
+			return nil, fmt.Errorf("no field named %q was found under type User", field.Name)
 		},
 	}
 	return fc, nil
@@ -1395,9 +1395,9 @@ func (ec *executionContext) _Query_getUser(ctx context.Context, field graphql.Co
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*model.UserEntity)
+	res := resTmp.(*model.User)
 	fc.Result = res
-	return ec.marshalOUserEntity2ᚖbookstoreᚗexampleᚗgraphqlᚋgraphᚋmodelᚐUserEntity(ctx, field.Selections, res)
+	return ec.marshalOUser2ᚖmessageboardᚗexampleᚗgraphqlᚋgraphᚋmodelᚐUser(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Query_getUser(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -1409,11 +1409,11 @@ func (ec *executionContext) fieldContext_Query_getUser(ctx context.Context, fiel
 		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
 			switch field.Name {
 			case "id":
-				return ec.fieldContext_UserEntity_id(ctx, field)
+				return ec.fieldContext_User_id(ctx, field)
 			case "name":
-				return ec.fieldContext_UserEntity_name(ctx, field)
+				return ec.fieldContext_User_name(ctx, field)
 			}
-			return nil, fmt.Errorf("no field named %q was found under type UserEntity", field.Name)
+			return nil, fmt.Errorf("no field named %q was found under type User", field.Name)
 		},
 	}
 	defer func() {
@@ -1455,7 +1455,7 @@ func (ec *executionContext) _Query_getUserPosts(ctx context.Context, field graph
 	}
 	res := resTmp.([]*model.Post)
 	fc.Result = res
-	return ec.marshalOPost2ᚕᚖbookstoreᚗexampleᚗgraphqlᚋgraphᚋmodelᚐPost(ctx, field.Selections, res)
+	return ec.marshalOPost2ᚕᚖmessageboardᚗexampleᚗgraphqlᚋgraphᚋmodelᚐPost(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Query_getUserPosts(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -1519,7 +1519,7 @@ func (ec *executionContext) _Query_getPosts(ctx context.Context, field graphql.C
 	}
 	res := resTmp.([]*model.Post)
 	fc.Result = res
-	return ec.marshalOPost2ᚕᚖbookstoreᚗexampleᚗgraphqlᚋgraphᚋmodelᚐPost(ctx, field.Selections, res)
+	return ec.marshalOPost2ᚕᚖmessageboardᚗexampleᚗgraphqlᚋgraphᚋmodelᚐPost(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Query_getPosts(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -1572,7 +1572,7 @@ func (ec *executionContext) _Query_getPostComments(ctx context.Context, field gr
 	}
 	res := resTmp.([]*model.Comment)
 	fc.Result = res
-	return ec.marshalOComment2ᚕᚖbookstoreᚗexampleᚗgraphqlᚋgraphᚋmodelᚐComment(ctx, field.Selections, res)
+	return ec.marshalOComment2ᚕᚖmessageboardᚗexampleᚗgraphqlᚋgraphᚋmodelᚐComment(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Query_getPostComments(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -1638,7 +1638,7 @@ func (ec *executionContext) _Query_getComment(ctx context.Context, field graphql
 	}
 	res := resTmp.(*model.Comment)
 	fc.Result = res
-	return ec.marshalOComment2ᚖbookstoreᚗexampleᚗgraphqlᚋgraphᚋmodelᚐComment(ctx, field.Selections, res)
+	return ec.marshalOComment2ᚖmessageboardᚗexampleᚗgraphqlᚋgraphᚋmodelᚐComment(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Query_getComment(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -1808,8 +1808,8 @@ func (ec *executionContext) fieldContext_Query___schema(_ context.Context, field
 	return fc, nil
 }
 
-func (ec *executionContext) _UserEntity_id(ctx context.Context, field graphql.CollectedField, obj *model.UserEntity) (ret graphql.Marshaler) {
-	fc, err := ec.fieldContext_UserEntity_id(ctx, field)
+func (ec *executionContext) _User_id(ctx context.Context, field graphql.CollectedField, obj *model.User) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_User_id(ctx, field)
 	if err != nil {
 		return graphql.Null
 	}
@@ -1839,9 +1839,9 @@ func (ec *executionContext) _UserEntity_id(ctx context.Context, field graphql.Co
 	return ec.marshalNID2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) fieldContext_UserEntity_id(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+func (ec *executionContext) fieldContext_User_id(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
 	fc = &graphql.FieldContext{
-		Object:     "UserEntity",
+		Object:     "User",
 		Field:      field,
 		IsMethod:   false,
 		IsResolver: false,
@@ -1852,8 +1852,8 @@ func (ec *executionContext) fieldContext_UserEntity_id(_ context.Context, field 
 	return fc, nil
 }
 
-func (ec *executionContext) _UserEntity_name(ctx context.Context, field graphql.CollectedField, obj *model.UserEntity) (ret graphql.Marshaler) {
-	fc, err := ec.fieldContext_UserEntity_name(ctx, field)
+func (ec *executionContext) _User_name(ctx context.Context, field graphql.CollectedField, obj *model.User) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_User_name(ctx, field)
 	if err != nil {
 		return graphql.Null
 	}
@@ -1883,9 +1883,9 @@ func (ec *executionContext) _UserEntity_name(ctx context.Context, field graphql.
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) fieldContext_UserEntity_name(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+func (ec *executionContext) fieldContext_User_name(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
 	fc = &graphql.FieldContext{
-		Object:     "UserEntity",
+		Object:     "User",
 		Field:      field,
 		IsMethod:   false,
 		IsResolver: false,
@@ -4075,24 +4075,24 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 	return out
 }
 
-var userEntityImplementors = []string{"UserEntity"}
+var userImplementors = []string{"User"}
 
-func (ec *executionContext) _UserEntity(ctx context.Context, sel ast.SelectionSet, obj *model.UserEntity) graphql.Marshaler {
-	fields := graphql.CollectFields(ec.OperationContext, sel, userEntityImplementors)
+func (ec *executionContext) _User(ctx context.Context, sel ast.SelectionSet, obj *model.User) graphql.Marshaler {
+	fields := graphql.CollectFields(ec.OperationContext, sel, userImplementors)
 
 	out := graphql.NewFieldSet(fields)
 	deferred := make(map[string]*graphql.FieldSet)
 	for i, field := range fields {
 		switch field.Name {
 		case "__typename":
-			out.Values[i] = graphql.MarshalString("UserEntity")
+			out.Values[i] = graphql.MarshalString("User")
 		case "id":
-			out.Values[i] = ec._UserEntity_id(ctx, field, obj)
+			out.Values[i] = ec._User_id(ctx, field, obj)
 			if out.Values[i] == graphql.Null {
 				out.Invalids++
 			}
 		case "name":
-			out.Values[i] = ec._UserEntity_name(ctx, field, obj)
+			out.Values[i] = ec._User_name(ctx, field, obj)
 			if out.Values[i] == graphql.Null {
 				out.Invalids++
 			}
@@ -4445,12 +4445,12 @@ func (ec *executionContext) ___Type(ctx context.Context, sel ast.SelectionSet, o
 
 // region    ***************************** type.gotpl *****************************
 
-func (ec *executionContext) unmarshalNAddNewCommentInput2bookstoreᚗexampleᚗgraphqlᚋgraphᚋmodelᚐAddNewCommentInput(ctx context.Context, v interface{}) (model.AddNewCommentInput, error) {
+func (ec *executionContext) unmarshalNAddNewCommentInput2messageboardᚗexampleᚗgraphqlᚋgraphᚋmodelᚐAddNewCommentInput(ctx context.Context, v interface{}) (model.AddNewCommentInput, error) {
 	res, err := ec.unmarshalInputAddNewCommentInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNAddNewPostInput2bookstoreᚗexampleᚗgraphqlᚋgraphᚋmodelᚐAddNewPostInput(ctx context.Context, v interface{}) (model.AddNewPostInput, error) {
+func (ec *executionContext) unmarshalNAddNewPostInput2messageboardᚗexampleᚗgraphqlᚋgraphᚋmodelᚐAddNewPostInput(ctx context.Context, v interface{}) (model.AddNewPostInput, error) {
 	res, err := ec.unmarshalInputAddNewPostInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
@@ -4470,7 +4470,7 @@ func (ec *executionContext) marshalNBoolean2bool(ctx context.Context, sel ast.Se
 	return res
 }
 
-func (ec *executionContext) marshalNComment2ᚕᚖbookstoreᚗexampleᚗgraphqlᚋgraphᚋmodelᚐCommentᚄ(ctx context.Context, sel ast.SelectionSet, v []*model.Comment) graphql.Marshaler {
+func (ec *executionContext) marshalNComment2ᚕᚖmessageboardᚗexampleᚗgraphqlᚋgraphᚋmodelᚐCommentᚄ(ctx context.Context, sel ast.SelectionSet, v []*model.Comment) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -4494,7 +4494,7 @@ func (ec *executionContext) marshalNComment2ᚕᚖbookstoreᚗexampleᚗgraphql�
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNComment2ᚖbookstoreᚗexampleᚗgraphqlᚋgraphᚋmodelᚐComment(ctx, sel, v[i])
+			ret[i] = ec.marshalNComment2ᚖmessageboardᚗexampleᚗgraphqlᚋgraphᚋmodelᚐComment(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -4514,7 +4514,7 @@ func (ec *executionContext) marshalNComment2ᚕᚖbookstoreᚗexampleᚗgraphql�
 	return ret
 }
 
-func (ec *executionContext) marshalNComment2ᚖbookstoreᚗexampleᚗgraphqlᚋgraphᚋmodelᚐComment(ctx context.Context, sel ast.SelectionSet, v *model.Comment) graphql.Marshaler {
+func (ec *executionContext) marshalNComment2ᚖmessageboardᚗexampleᚗgraphqlᚋgraphᚋmodelᚐComment(ctx context.Context, sel ast.SelectionSet, v *model.Comment) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
@@ -4554,7 +4554,7 @@ func (ec *executionContext) marshalNInt2int(ctx context.Context, sel ast.Selecti
 	return res
 }
 
-func (ec *executionContext) marshalNPost2ᚖbookstoreᚗexampleᚗgraphqlᚋgraphᚋmodelᚐPost(ctx context.Context, sel ast.SelectionSet, v *model.Post) graphql.Marshaler {
+func (ec *executionContext) marshalNPost2ᚖmessageboardᚗexampleᚗgraphqlᚋgraphᚋmodelᚐPost(ctx context.Context, sel ast.SelectionSet, v *model.Post) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
@@ -4579,14 +4579,14 @@ func (ec *executionContext) marshalNString2string(ctx context.Context, sel ast.S
 	return res
 }
 
-func (ec *executionContext) marshalNUserEntity2ᚖbookstoreᚗexampleᚗgraphqlᚋgraphᚋmodelᚐUserEntity(ctx context.Context, sel ast.SelectionSet, v *model.UserEntity) graphql.Marshaler {
+func (ec *executionContext) marshalNUser2ᚖmessageboardᚗexampleᚗgraphqlᚋgraphᚋmodelᚐUser(ctx context.Context, sel ast.SelectionSet, v *model.User) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
 		}
 		return graphql.Null
 	}
-	return ec._UserEntity(ctx, sel, v)
+	return ec._User(ctx, sel, v)
 }
 
 func (ec *executionContext) marshalN__Directive2githubᚗcomᚋ99designsᚋgqlgenᚋgraphqlᚋintrospectionᚐDirective(ctx context.Context, sel ast.SelectionSet, v introspection.Directive) graphql.Marshaler {
@@ -4868,7 +4868,7 @@ func (ec *executionContext) marshalOBoolean2ᚖbool(ctx context.Context, sel ast
 	return res
 }
 
-func (ec *executionContext) marshalOComment2ᚕᚖbookstoreᚗexampleᚗgraphqlᚋgraphᚋmodelᚐComment(ctx context.Context, sel ast.SelectionSet, v []*model.Comment) graphql.Marshaler {
+func (ec *executionContext) marshalOComment2ᚕᚖmessageboardᚗexampleᚗgraphqlᚋgraphᚋmodelᚐComment(ctx context.Context, sel ast.SelectionSet, v []*model.Comment) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -4895,7 +4895,7 @@ func (ec *executionContext) marshalOComment2ᚕᚖbookstoreᚗexampleᚗgraphql�
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalOComment2ᚖbookstoreᚗexampleᚗgraphqlᚋgraphᚋmodelᚐComment(ctx, sel, v[i])
+			ret[i] = ec.marshalOComment2ᚖmessageboardᚗexampleᚗgraphqlᚋgraphᚋmodelᚐComment(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -4909,7 +4909,7 @@ func (ec *executionContext) marshalOComment2ᚕᚖbookstoreᚗexampleᚗgraphql�
 	return ret
 }
 
-func (ec *executionContext) marshalOComment2ᚖbookstoreᚗexampleᚗgraphqlᚋgraphᚋmodelᚐComment(ctx context.Context, sel ast.SelectionSet, v *model.Comment) graphql.Marshaler {
+func (ec *executionContext) marshalOComment2ᚖmessageboardᚗexampleᚗgraphqlᚋgraphᚋmodelᚐComment(ctx context.Context, sel ast.SelectionSet, v *model.Comment) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -4932,7 +4932,7 @@ func (ec *executionContext) marshalOInt2ᚖint(ctx context.Context, sel ast.Sele
 	return res
 }
 
-func (ec *executionContext) marshalOPost2ᚕᚖbookstoreᚗexampleᚗgraphqlᚋgraphᚋmodelᚐPost(ctx context.Context, sel ast.SelectionSet, v []*model.Post) graphql.Marshaler {
+func (ec *executionContext) marshalOPost2ᚕᚖmessageboardᚗexampleᚗgraphqlᚋgraphᚋmodelᚐPost(ctx context.Context, sel ast.SelectionSet, v []*model.Post) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -4959,7 +4959,7 @@ func (ec *executionContext) marshalOPost2ᚕᚖbookstoreᚗexampleᚗgraphqlᚋg
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalOPost2ᚖbookstoreᚗexampleᚗgraphqlᚋgraphᚋmodelᚐPost(ctx, sel, v[i])
+			ret[i] = ec.marshalOPost2ᚖmessageboardᚗexampleᚗgraphqlᚋgraphᚋmodelᚐPost(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -4973,7 +4973,7 @@ func (ec *executionContext) marshalOPost2ᚕᚖbookstoreᚗexampleᚗgraphqlᚋg
 	return ret
 }
 
-func (ec *executionContext) marshalOPost2ᚖbookstoreᚗexampleᚗgraphqlᚋgraphᚋmodelᚐPost(ctx context.Context, sel ast.SelectionSet, v *model.Post) graphql.Marshaler {
+func (ec *executionContext) marshalOPost2ᚖmessageboardᚗexampleᚗgraphqlᚋgraphᚋmodelᚐPost(ctx context.Context, sel ast.SelectionSet, v *model.Post) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -4996,7 +4996,7 @@ func (ec *executionContext) marshalOString2ᚖstring(ctx context.Context, sel as
 	return res
 }
 
-func (ec *executionContext) marshalOUserEntity2ᚕᚖbookstoreᚗexampleᚗgraphqlᚋgraphᚋmodelᚐUserEntity(ctx context.Context, sel ast.SelectionSet, v []*model.UserEntity) graphql.Marshaler {
+func (ec *executionContext) marshalOUser2ᚕᚖmessageboardᚗexampleᚗgraphqlᚋgraphᚋmodelᚐUser(ctx context.Context, sel ast.SelectionSet, v []*model.User) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -5023,7 +5023,7 @@ func (ec *executionContext) marshalOUserEntity2ᚕᚖbookstoreᚗexampleᚗgraph
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalOUserEntity2ᚖbookstoreᚗexampleᚗgraphqlᚋgraphᚋmodelᚐUserEntity(ctx, sel, v[i])
+			ret[i] = ec.marshalOUser2ᚖmessageboardᚗexampleᚗgraphqlᚋgraphᚋmodelᚐUser(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -5037,11 +5037,11 @@ func (ec *executionContext) marshalOUserEntity2ᚕᚖbookstoreᚗexampleᚗgraph
 	return ret
 }
 
-func (ec *executionContext) marshalOUserEntity2ᚖbookstoreᚗexampleᚗgraphqlᚋgraphᚋmodelᚐUserEntity(ctx context.Context, sel ast.SelectionSet, v *model.UserEntity) graphql.Marshaler {
+func (ec *executionContext) marshalOUser2ᚖmessageboardᚗexampleᚗgraphqlᚋgraphᚋmodelᚐUser(ctx context.Context, sel ast.SelectionSet, v *model.User) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
-	return ec._UserEntity(ctx, sel, v)
+	return ec._User(ctx, sel, v)
 }
 
 func (ec *executionContext) marshalO__EnumValue2ᚕgithubᚗcomᚋ99designsᚋgqlgenᚋgraphqlᚋintrospectionᚐEnumValueᚄ(ctx context.Context, sel ast.SelectionSet, v []introspection.EnumValue) graphql.Marshaler {
