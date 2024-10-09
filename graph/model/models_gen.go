@@ -2,25 +2,39 @@
 
 package model
 
+type AddNewCommentInput struct {
+	PostID int    `json:"postId"`
+	Text   string `json:"text"`
+}
+
+type AddNewPostInput struct {
+	Text string `json:"text"`
+}
+
+type Comment struct {
+	ID           string      `json:"id"`
+	PostID       int         `json:"postId"`
+	Post         *Post       `json:"post"`
+	AuthorUserID int         `json:"authorUserId"`
+	AuthorUser   *UserEntity `json:"authorUser"`
+	Text         string      `json:"text"`
+}
+
 type Mutation struct {
 }
 
-type NewTodo struct {
-	Text   string `json:"text"`
-	UserID string `json:"userId"`
+type Post struct {
+	ID           string      `json:"id"`
+	AuthorUserID int         `json:"authorUserId"`
+	AuthorUser   *UserEntity `json:"authorUser"`
+	Text         string      `json:"text"`
+	Comments     []*Comment  `json:"comments"`
 }
 
 type Query struct {
 }
 
-type Todo struct {
-	ID   string `json:"id"`
-	Text string `json:"text"`
-	Done bool   `json:"done"`
-	User *User  `json:"user"`
-}
-
-type User struct {
+type UserEntity struct {
 	ID   string `json:"id"`
 	Name string `json:"name"`
 }
