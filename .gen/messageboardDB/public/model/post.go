@@ -7,8 +7,13 @@
 
 package model
 
+import (
+	"time"
+)
+
 type Post struct {
 	ID            int32 `sql:"primary_key"`
 	AuthorUsersID int32
 	Text          *string
+	CreatedTime   *time.Time
 }

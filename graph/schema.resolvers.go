@@ -7,6 +7,7 @@ package graph
 import (
 	"context"
 	"fmt"
+	"time"
 
 	"messageboard.example.graphql/.gen/messageboardDB/public/model"
 	gqlmodel "messageboard.example.graphql/graph/model"
@@ -20,9 +21,11 @@ func (r *commentResolver) AuthorUser(ctx context.Context, obj *gqlmodel.Comment)
 
 // AddPost is the resolver for the addPost field.
 func (r *mutationResolver) AddPost(ctx context.Context, add gqlmodel.AddNewPostInput) (*gqlmodel.Post, error) {
+	now := time.Now().UTC()
 	post, err := r.PostService.AddPost(&model.Post{
 		Text:          &add.Text,
 		AuthorUsersID: int32(r.LoggedInUserId),
+		CreatedTime:   &now,
 	})
 
 	if err != nil {
@@ -43,10 +46,11 @@ func (r *mutationResolver) AddComment(ctx context.Context, add gqlmodel.AddNewCo
 	if err != nil {
 		return nil, err
 	}
-
+	now := time.Now().UTC()
 	comment, err := r.PostService.AddComment(&model.Comment{
 		PostID:        post.ID,
 		Text:          &add.Text,
+		CreatedTime:   &now,
 		AuthorUsersID: int32(r.LoggedInUserId),
 	})
 

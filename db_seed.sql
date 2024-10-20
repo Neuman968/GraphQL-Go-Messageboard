@@ -13,6 +13,7 @@ CREATE TABLE post
     id SERIAL PRIMARY KEY,
     author_users_id INTEGER NOT NULL,
     text text,
+    created_time TIMESTAMP NOT NULL DEFAULT now(),
     FOREIGN KEY (author_users_id) REFERENCES users(id)
 );
 
@@ -21,6 +22,7 @@ CREATE TABLE comment
     id SERIAL PRIMARY KEY,
     post_id INTEGER NOT NULL,
     author_users_id INTEGER NOT NULL,
+    created_time TIMESTAMP NOT NULL DEFAULT now(),
     text text,
     FOREIGN KEY (post_id) REFERENCES post(id),
     FOREIGN KEY (author_users_id) REFERENCES users(id)

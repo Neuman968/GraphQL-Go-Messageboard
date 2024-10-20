@@ -73,7 +73,7 @@ func main() {
 func corsMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		// Allow all origins (you can restrict this to specific origins)
-		w.Header().Set("Access-Control-Allow-Origin", "localhost")
+		w.Header().Set("Access-Control-Allow-Origin", "*")
 
 		// Allow specific methods
 		w.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")

@@ -153,11 +153,12 @@ func (s *dataLoadersService) PostComments(ctx context.Context, postIds []string)
 
 	// Query statement
 	stmt := WITH(postCommentsWith.AS(
-		SELECT(Comment.AllColumns, ROW_NUMBER().OVER(PARTITION_BY(Comment.PostID).ORDER_BY(Comment.ID.DESC())).AS(rowNumberAlias)).
+		SELECT(Comment.AllColumns, ROW_NUMBER().OVER(PARTITION_BY(Comment.PostID).ORDER_BY(Comment.CreatedTime)).AS(rowNumberAlias)).
 			FROM(Comment).
-			WHERE(Comment.PostID.IN(jetIn...))))(SELECT(postCommentsWith.AllColumns()).
-		FROM(Post.LEFT_JOIN(postCommentsWith, Post.ID.EQ(Comment.PostID.From(postCommentsWith)))).
-		WHERE(Post.ID.IN(jetIn...).AND(IntegerColumn(rowNumberAlias).LT_EQ(Int(int64(limit))))))
+			WHERE(Comment.PostID.IN(jetIn...))))(
+		SELECT(postCommentsWith.AllColumns()).
+			FROM(Post.LEFT_JOIN(postCommentsWith, Post.ID.EQ(Comment.PostID.From(postCommentsWith)))).
+			WHERE(Post.ID.IN(jetIn...).AND(IntegerColumn(rowNumberAlias).LT_EQ(Int(int64(limit))))))
 
 	// Execute Query
 	if err := stmt.Query(s.db, &queryResult); err != nil {

@@ -20,6 +20,7 @@ type commentTable struct {
 	ID            postgres.ColumnInteger
 	PostID        postgres.ColumnInteger
 	AuthorUsersID postgres.ColumnInteger
+	CreatedTime   postgres.ColumnTimestamp
 	Text          postgres.ColumnString
 
 	AllColumns     postgres.ColumnList
@@ -64,9 +65,10 @@ func newCommentTableImpl(schemaName, tableName, alias string) commentTable {
 		IDColumn            = postgres.IntegerColumn("id")
 		PostIDColumn        = postgres.IntegerColumn("post_id")
 		AuthorUsersIDColumn = postgres.IntegerColumn("author_users_id")
+		CreatedTimeColumn   = postgres.TimestampColumn("created_time")
 		TextColumn          = postgres.StringColumn("text")
-		allColumns          = postgres.ColumnList{IDColumn, PostIDColumn, AuthorUsersIDColumn, TextColumn}
-		mutableColumns      = postgres.ColumnList{PostIDColumn, AuthorUsersIDColumn, TextColumn}
+		allColumns          = postgres.ColumnList{IDColumn, PostIDColumn, AuthorUsersIDColumn, CreatedTimeColumn, TextColumn}
+		mutableColumns      = postgres.ColumnList{PostIDColumn, AuthorUsersIDColumn, CreatedTimeColumn, TextColumn}
 	)
 
 	return commentTable{
@@ -76,6 +78,7 @@ func newCommentTableImpl(schemaName, tableName, alias string) commentTable {
 		ID:            IDColumn,
 		PostID:        PostIDColumn,
 		AuthorUsersID: AuthorUsersIDColumn,
+		CreatedTime:   CreatedTimeColumn,
 		Text:          TextColumn,
 
 		AllColumns:     allColumns,

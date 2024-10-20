@@ -20,6 +20,7 @@ type postTable struct {
 	ID            postgres.ColumnInteger
 	AuthorUsersID postgres.ColumnInteger
 	Text          postgres.ColumnString
+	CreatedTime   postgres.ColumnTimestamp
 
 	AllColumns     postgres.ColumnList
 	MutableColumns postgres.ColumnList
@@ -63,8 +64,9 @@ func newPostTableImpl(schemaName, tableName, alias string) postTable {
 		IDColumn            = postgres.IntegerColumn("id")
 		AuthorUsersIDColumn = postgres.IntegerColumn("author_users_id")
 		TextColumn          = postgres.StringColumn("text")
-		allColumns          = postgres.ColumnList{IDColumn, AuthorUsersIDColumn, TextColumn}
-		mutableColumns      = postgres.ColumnList{AuthorUsersIDColumn, TextColumn}
+		CreatedTimeColumn   = postgres.TimestampColumn("created_time")
+		allColumns          = postgres.ColumnList{IDColumn, AuthorUsersIDColumn, TextColumn, CreatedTimeColumn}
+		mutableColumns      = postgres.ColumnList{AuthorUsersIDColumn, TextColumn, CreatedTimeColumn}
 	)
 
 	return postTable{
@@ -74,6 +76,7 @@ func newPostTableImpl(schemaName, tableName, alias string) postTable {
 		ID:            IDColumn,
 		AuthorUsersID: AuthorUsersIDColumn,
 		Text:          TextColumn,
+		CreatedTime:   CreatedTimeColumn,
 
 		AllColumns:     allColumns,
 		MutableColumns: mutableColumns,
