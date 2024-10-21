@@ -29,10 +29,11 @@ CREATE TABLE comment
 );
 
 insert into users(id, name)
-values (1, 'Author'),
+values (1, 'Sam'),
        (2, 'Pat'),
        (3, 'Riley'),
-       (4, 'Jamie');
+       (4, 'Jamie'),
+       (10, 'Me');
 
 insert into post(id, author_users_id, text)
 values (10, 1, 'New pair of shoes!'),

@@ -57,7 +57,7 @@ func main() {
 	var srv http.Handler = handler.NewDefaultServer(graph.NewExecutableSchema(graph.Config{Resolvers: &graph.Resolver{
 		PostService:    services.NewPost(db),
 		UserService:    services.NewUser(db),
-		LoggedInUserId: 1,
+		LoggedInUserId: 10,
 	}}))
 
 	srv = dataloaders.DataLoaderMiddleware(log, db, srv)

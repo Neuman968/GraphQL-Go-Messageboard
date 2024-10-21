@@ -75,8 +75,8 @@ func (r *postResolver) Comments(ctx context.Context, obj *gqlmodel.Post, limit i
 	return dataloaders.LoadPostComment(ctx, obj.ID, limit)
 }
 
-// GetUsers is the resolver for the getUsers field.
-func (r *queryResolver) GetUsers(ctx context.Context) ([]*gqlmodel.User, error) {
+// Users is the resolver for the users field.
+func (r *queryResolver) Users(ctx context.Context) ([]*gqlmodel.User, error) {
 	dmUsers, err := r.UserService.GetUsers()
 
 	if err != nil {
@@ -87,15 +87,15 @@ func (r *queryResolver) GetUsers(ctx context.Context) ([]*gqlmodel.User, error) 
 	for _, dmUser := range dmUsers {
 		modelUsers = append(modelUsers, &gqlmodel.User{
 			ID:   fmt.Sprint(dmUser.ID),
-			Name: fmt.Sprint(dmUser.Name),
+			Name: fmt.Sprint(*dmUser.Name),
 		})
 	}
 
 	return modelUsers, nil
 }
 
-// GetPosts is the resolver for the getPosts field.
-func (r *queryResolver) GetPosts(ctx context.Context) ([]*gqlmodel.Post, error) {
+// Posts is the resolver for the posts field.
+func (r *queryResolver) Posts(ctx context.Context) ([]*gqlmodel.Post, error) {
 	dmPosts, err := r.PostService.GetPosts()
 
 	if err != nil {
