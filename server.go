@@ -20,20 +20,18 @@ import (
 
 const defaultPort = "8080"
 
-const (
-	host     = "localhost"
-	port     = "5432"
-	user     = "messageboard-db-user"
-	password = "messageboard-db-password"
-	dbName   = "messageboardDB"
-)
-
 func main() {
 
 	log := log.Default()
 
+	host := os.Getenv("DB_HOST")
+	dbPort := os.Getenv("DB_PORT")
+	user := os.Getenv("DB_USER")
+	password := os.Getenv("DB_PASSWORD")
+	dbName := os.Getenv("DB_NAME")
+
 	// Connect to database
-	var connectString = fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable", host, 5432, user, password, dbName)
+	var connectString = fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable", host, dbPort, user, password, dbName)
 
 	// Debug function to allow sql to print.
 	postgres.SetQueryLogger(func(ctx context.Context, queryInfo postgres.QueryInfo) {
