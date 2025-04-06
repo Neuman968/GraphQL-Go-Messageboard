@@ -6,7 +6,7 @@ run the docker compose file using
 docker compose up
 ```
 
-naviate to `http://localhost:8080` to use GraphIQL to call endpoints.
+navigate to `http://localhost:8080` to use GraphIQL to call endpoints.
 
 ### Sample Query
 
