@@ -1,23 +1,34 @@
 # Running the Application
 
-# Start the database. 
-
-A docker compose file for starting the database is included in this project. Simply run 
+run the docker compose file using 
 
 ```bash
-docker-compose up postgres -d
+docker compose up
 ```
 
-# Running server 
+naviate to `http://localhost:8080` to use GraphIQL to call endpoints.
 
-Running the server can be done with the command
+### Sample Query
 
-```bash
-PORT=8080 go run server.go
+```graphql
+query {
+  posts {
+    id
+    text
+    authorUser {
+      id
+      name
+    }
+    comments(limit: 10) {
+      text
+      authorUser {
+        id
+        name
+      }
+    }
+  }
+}
 ```
-
-Navigate to http://localhost:8080/ for graphiql.
-
 
 # Development
 
